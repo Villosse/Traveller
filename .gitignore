@@ -1,8 +1,12 @@
+# This is the gitignore for our C++ Project
+
+# First, we ignore everything, so any executable or trashfiles not managed would be added
 *
 
+# We add only files we need, for example, the build dir is not needed
 !src/
 !src/*
-!CMakeLists.txt
+# !CMakeLists.txt
 !.gitignore
 !compile.sh
 !README.md
