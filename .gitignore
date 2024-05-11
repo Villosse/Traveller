@@ -1,0 +1,9 @@
+*
+
+!src/
+!src/*
+!CMakeLists.txt
+!.gitignore
+!compile.sh
+!README.md
+!.env
