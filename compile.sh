@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source "./.env"
-
+# Regex Tah les ouf
 if [[ $PROJECT_NAME =~ [^a-zA-Z0-9_] ]]; then
   echo "error : PROJECT_NAME contains a forbidden symbol"
   exit 1
