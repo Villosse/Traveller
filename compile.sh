@@ -37,6 +37,7 @@ if [ $? -eq 0 ]; then
     echo "Compilation successful. Executable is located at: ${PROJECT_OUTPUT_DIR}/${PROJECT_NAME}"
 else
     echo "Compilation failed."
+    exit 1
 fi
 
 ./$PROJECT_NAME
