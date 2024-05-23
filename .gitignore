@@ -2,7 +2,8 @@
 
 # First, we ignore everything, so any executable or trashfiles not managed would be added
 *
-
+.*
+./*
 # We add only files we need, for example, the build dir is not needed
 !src/
 !src/*
@@ -12,3 +13,4 @@
 !README.md
 !.env
 !AUTHORS
+!flake.*
