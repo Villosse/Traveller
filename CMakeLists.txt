@@ -20,11 +20,18 @@ endif()
 # Find the QtWidgets library
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
 
+file(GLOB SOURCES "src/*.cpp")
+
 # Add the executable
-add_executable(Travelling_SalesMan_Problem src/main.cpp)
+add_executable(Travelling_SalesMan_Problem ${SOURCES})
 
 # Set the output directory for the executable
-set(EXECUTABLE_OUTPUT_PATH /home/lenny/Documents/tsp)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 
 # Add the Qt5 Widgets for linking
-target_link_libraries(Travelling_SalesMan_Problem Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+
+target_include_directories(${PROJECT_NAME}
+    PRIVATE 
+        ${PROJECT_SOURCE_DIR}/include
+)
