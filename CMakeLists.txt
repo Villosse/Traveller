@@ -21,9 +21,10 @@ endif()
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
 
 file(GLOB SOURCES "src/*.cpp")
+file(GLOB HEADERS "includes/*.h")
 
 # Add the executable
-add_executable(Travelling_SalesMan_Problem ${SOURCES})
+add_executable(Travelling_SalesMan_Problem ${SOURCES} ${HEADERS})
 
 # Set the output directory for the executable
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
