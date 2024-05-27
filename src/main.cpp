@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 // Function to check if a point is within a rectangle
 bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mousePos) {
@@ -8,9 +9,9 @@ bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mou
 }
 
 // Function to calculate the distance between two points
-/*float distanceBetweenPoints(const sf::Vector2f& p1, const sf::Vector2f& p2) {
+float distanceBetweenPoints(const sf::Vector2f& p1, const sf::Vector2f& p2) {
     return std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
-}*/
+}
 
 int main() {
     // Get the current video mode of the screen
@@ -27,7 +28,7 @@ int main() {
     // Create buttons with dynamic width based on screen size
     float buttonWidth = (screenMode.width - 200) / 5.0f;
     std::vector<sf::RectangleShape> buttons(5);
-    std::vector<std::string> buttonNames = {"Clear", "Next Step", "Final Result", "", "Quit"};
+    std::vector<std::string> buttonNames = {"Clear", "Next Step", "Final Result", "Distance : 0", "Quit"};
     std::vector<sf::Color> buttonColors = {sf::Color(230, 0, 108), sf::Color(167, 200, 14), sf::Color(0, 175, 212), sf::Color(221, 55, 55), sf::Color(245, 156, 46), sf::Color(47, 85, 117)};
     for (int i = 0; i < 5; ++i) {
         buttons[i].setSize(sf::Vector2f(buttonWidth, buttonHeight));
@@ -55,11 +56,6 @@ int main() {
     // Vector to store points
     std::vector<sf::CircleShape> points;
 
-    // Create text for displaying total distance
-    sf::Text totalDistanceText("Total Distance: 0", font, 20);
-    totalDistanceText.setPosition(screenMode.width - 190, 20);
-    totalDistanceText.setFillColor(sf::Color::White);
-
     // Start the game loop
     while (window.isOpen()) {
         // Process events
@@ -83,10 +79,10 @@ int main() {
                         // Update total distance text if there are more than two points
                         if (points.size() > 2) {
                             float totalDistance = 0;
-                            /*for (size_t i = 1; i < points.size(); ++i) {
+                            for (size_t i = 1; i < points.size(); ++i) {
                                 totalDistance += distanceBetweenPoints(points[i - 1].getPosition(), points[i].getPosition());
-                            }*/
-                            totalDistanceText.setString("Total Distance: " + std::to_string(totalDistance));
+                            }
+			    buttonNames[3] = "Distance : " + std::to_string(totalDistance); 
                         }
                     } else {
                         // Check button clicks
@@ -95,7 +91,7 @@ int main() {
                                 if (i == 0) {
                                     // Clear the drawing area if the first button is clicked
                                     points.clear();
-                                    totalDistanceText.setString("Total Distance: 0");
+				    buttonNames[3] = "Distance : 0";
                                 } else if (i == 1) {
                                     // Handle functionality for button 2 (Next Step)
                                     // You can implement this later
@@ -103,6 +99,7 @@ int main() {
                                     // Handle functionality for button 3 (Final Result)
                                     // You can implement this later
                                 } else if (i == 3) {
+
                                     // No action for this button as it's not clickable
                                 } else if (i == 4) {
                                     // Close the window if the last button is clicked
@@ -142,15 +139,14 @@ int main() {
 	    };
 	    window.draw(line, 2, sf::Lines);
         }
-
-        // Draw buttons
+	
+	buttonTexts[3].setString(buttonNames[3]);
+        
+	// Draw buttons
         for (int i = 0; i < 5; ++i) {
             window.draw(buttons[i]);
             window.draw(buttonTexts[i]);
         }
-
-        // Draw total distance text
-        window.draw(totalDistanceText);
 
         // Update the window
         window.display();

@@ -9,8 +9,6 @@ fi
 
 mkdir -p "${PROJECT_DIR}/build"
 
-rm -rf "${PROJECT_DIR}/build/*"
-
 mkdir -p output/debug/ 
 
 cmake -B "${PROJECT_DIR}/build" > output/debug/cmake.log
