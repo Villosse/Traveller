@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
-#include <cmath>
 
 // Function to check if a point is within a rectangle
 bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mousePos) {
@@ -9,9 +8,9 @@ bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mou
 }
 
 // Function to calculate the distance between two points
-float distanceBetweenPoints(const sf::Vector2f& p1, const sf::Vector2f& p2) {
+/*float distanceBetweenPoints(const sf::Vector2f& p1, const sf::Vector2f& p2) {
     return std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
-}
+}*/
 
 int main() {
     // Get the current video mode of the screen
@@ -84,9 +83,9 @@ int main() {
                         // Update total distance text if there are more than two points
                         if (points.size() > 2) {
                             float totalDistance = 0;
-                            for (size_t i = 1; i < points.size(); ++i) {
+                            /*for (size_t i = 1; i < points.size(); ++i) {
                                 totalDistance += distanceBetweenPoints(points[i - 1].getPosition(), points[i].getPosition());
-                            }
+                            }*/
                             totalDistanceText.setString("Total Distance: " + std::to_string(totalDistance));
                         }
                     } else {
