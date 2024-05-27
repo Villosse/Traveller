@@ -17,7 +17,7 @@
       gnumake
       cmake
       #qt5.full
-      gtk3
+      sfml
     ];
 
     shellHook = ''
