@@ -13,5 +13,6 @@ To compile your project, you should have the package :
 - gpp
 - make
 - bash
+- sfml
 
 To compile the project and get the executable, you must run the command `./compile.sh`
