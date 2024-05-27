@@ -16,3 +16,4 @@
 !flake.*
 !include/
 !include/*
+!*.ttf

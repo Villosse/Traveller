@@ -16,7 +16,8 @@
       gcc
       gnumake
       cmake
-      qt5.qtbase
+      #qt5.full
+      sfml
     ];
 
     shellHook = ''
