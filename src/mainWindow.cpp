@@ -25,8 +25,36 @@ void drawGraph(Line* line, sf::RenderWindow* window)
 	    };
 	    window->draw(l, 2, sf::Lines);
 	}
+}
+
+void drawWindow(sf::RenderWindow* window, Line* line, std::vector<sf::CircleShape> points, std::vector<sf::RectangleShape> buttons, std::vector<sf::Text> buttonTexts, std::vector<std::string> buttonNames)
+{
+  // Clear the window
+  window->clear(sf::Color::White);
+
+// Draw all points
+        for (const auto& point : points) {
+            window->draw(point);
+        }
+
+	buttonTexts[3].setString(buttonNames[3]);
+        
+	// Draw buttons
+        for (int i = 0; i < 5; ++i) {
+            window->draw(buttons[i]);
+            window->draw(buttonTexts[i]);
+        }
+
+
+
+	drawGraph(line, window);	
+
+	// Update the window
+        window->display();
+
 
 }
+
 
 Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::RenderWindow* window){
   for (size_t i = 1; i < nbGen; i++){
@@ -173,28 +201,12 @@ void init(){
             }
         }
 
-        // Clear the window
-        window.clear(sf::Color::White);
-
-        // Draw all points
-        for (const auto& point : points) {
-            window.draw(point);
-        }
-
-
-	drawGraph(line, &window);	
-
-	
-	buttonTexts[3].setString(buttonNames[3]);
         
-	// Draw buttons
-        for (int i = 0; i < 5; ++i) {
-            window.draw(buttons[i]);
-            window.draw(buttonTexts[i]);
-        }
+        
 
-        // Update the window
-        window.display();
+
+	drawWindow(&window, line, points, buttons, buttonTexts, buttonNames);
+	
     }
 }
 
