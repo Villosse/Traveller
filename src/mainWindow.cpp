@@ -61,7 +61,6 @@ Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::Re
     if(i % 200 == 0)
     {
       drawGraph(ga->population[0], window);
-      sleep(1);
     }
       double percentage = (double)i / nbGen;
       size_t nb_mutation = (ga->population[0]->len-1) * exp(-20 * percentage) + 1;
