@@ -4,7 +4,6 @@
 #define LINE_H
 #include "Node.h"
 
-
 class Line
 {
     public:
@@ -29,6 +28,9 @@ class Line
     
     double distance(size_t index1, size_t index2);
     double distance_to_next(size_t index);
+    
+    bool operator==(const Line& a);
+    
     ~Line();
 };
  

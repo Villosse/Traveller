@@ -1,16 +1,4 @@
-#include <cstddef>
-#include <cstdlib>
-#include <iostream>
-#include <cmath>
-#include <cfloat>
-#include "Node.h"
-#include "Line.h"
 #include "Travelling_salesman_problem.h"
-
-
-using namespace std;
-
-
 
 //recustive function used in the "shortest_path" function
 void Travelling_salesman_problem::__shortest_path_brute_force(Line** best, int start, int end)
@@ -42,17 +30,12 @@ void Travelling_salesman_problem::__shortest_path_brute_force(Line** best, int s
        	swap(start, i);
     }
 }
-
-
 void Travelling_salesman_problem::swap(size_t index1, size_t index2)
 {
 	Node* temp = nodes[index1];
 	nodes[index1] = nodes[index2];
 	nodes[index2] = temp;
 }
-
-
-
 Travelling_salesman_problem::Travelling_salesman_problem(Node** _nodes, size_t _len)
 {
 	len = _len;
@@ -64,11 +47,12 @@ Travelling_salesman_problem::Travelling_salesman_problem(Node** _nodes, size_t _
 		nodes[i] = new Node(n->x, n->y);
 	}
 }
-
-
 /*find the shortest path in the list of node
-An optimisation can be done: this code generate all pobbible combinaison,
+An optimisation can be done: this code generate all possible combinaison,
 incuding repetitive statement (1234 = 4321)
+
+Idc for now, it is just for test and comparing the mathematicaly best path.
+Useless in the final project
 */
 Line* Travelling_salesman_problem::shortest_path()
 {
@@ -82,20 +66,15 @@ Line* Travelling_salesman_problem::shortest_path()
 	
 	return (*best);
 }
-
-
 void Travelling_salesman_problem::print()
 {
-	cout << "len: " << len << "\n";
+  std::cout << "len: " << len << "\n";
 	for(size_t i=0; i<len; i++)
 		nodes[i]->print();
 }
-
 Travelling_salesman_problem::~Travelling_salesman_problem()
 {
 	for(size_t i=0; i<len; i++)
 		delete nodes[i];
 	free(nodes);
 }
-
-

@@ -1,5 +1,14 @@
 #pragma once
+#ifndef TRAVELLING_SALESMAN_PROBLEM
 
+#define TRAVELLING_SALESMAN_PROBLEM
+
+#include <cstddef>
+#include <cstdlib>
+#include <iostream>
+#include <cmath>
+#include <cfloat>
+#include "Line.h"
 
 class Travelling_salesman_problem
 {
@@ -20,8 +29,9 @@ class Travelling_salesman_problem
 	incuding repetitive statement (1234 = 4321)
 	*/
 	Line* shortest_path();
-
 	void print();
 	
 	~Travelling_salesman_problem();
 };
+
+#endif
