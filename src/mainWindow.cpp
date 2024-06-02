@@ -1,4 +1,54 @@
 #include "mainWindow.h"
+#include <unistd.h> 
+
+
+void drawGraph(Line* line, sf::RenderWindow* window)
+{
+        // Draw lines between consecutive points if there are more than two points
+	if (line->len > 2)
+	{
+	  for (size_t i = 1; i < line->len; i++)
+	  {
+	    sf::Vector2f p1 (line->node_list[i-1]->x, line->node_list[i-1]->y);
+	    sf::Vector2f p2 (line->node_list[i]->x, line->node_list[i]->y);
+	    sf::Vertex l[] = {
+	      sf::Vertex(p1, sf::Color::Black),
+	      sf::Vertex(p2, sf::Color::Black)
+	    };
+	    window->draw(l, 2, sf::Lines);
+	  }
+	    sf::Vector2f p1 (line->node_list[0]->x, line->node_list[0]->y);
+	    sf::Vector2f p2 (line->node_list[line->len - 1]->x, line->node_list[line->len - 1]->y);
+	    sf::Vertex l[] = {
+	      sf::Vertex(p1, sf::Color::Black),
+	      sf::Vertex(p2, sf::Color::Black)
+	    };
+	    window->draw(l, 2, sf::Lines);
+	}
+
+}
+
+Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::RenderWindow* window){
+  for (size_t i = 1; i < nbGen; i++){
+    if(i % 200 == 0)
+    {
+      drawGraph(ga->population[0], window);
+      sleep(1);
+    }
+      double percentage = (double)i / nbGen;
+      size_t nb_mutation = (ga->population[0]->len-1) * exp(-20 * percentage) + 1;
+    if (nb_mutation != ga->data[0]->number_of_mutation)
+    {
+      for(size_t i = 0; i < ga->nb_thread; i++)
+      {
+	ga->data[i]->number_of_mutation = nb_mutation;
+      }
+    }
+    ga->create_new_population(nb_mutation);
+  }
+  return ga->population[0];
+}
+
 
 // Function to check if a point is within a rectangle
 bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mousePos) {
@@ -12,6 +62,8 @@ float distanceBetweenPoints(const sf::Vector2f& p1, const sf::Vector2f& p2) {
 }
 
 void init(){
+
+    srand(time(NULL));
     // Get the current video mode of the screen
     sf::VideoMode screenMode = sf::VideoMode::getDesktopMode();
 
@@ -53,7 +105,8 @@ void init(){
 
     // Vector to store points
     std::vector<sf::CircleShape> points;
-    Line line = Line();
+    Line* line = new Line();
+    Genetic_algorithm* ga;
 
     // Start the game loop
     while (window.isOpen()) {
@@ -74,11 +127,11 @@ void init(){
                         point.setPosition(mousePos);
                         point.setFillColor(sf::Color::Black);
                         points.push_back(point);
-			line.add(mousePos.x, mousePos.y);
+			line->add(mousePos.x, mousePos.y);
 
                         // Update total distance text if there are more than two points
                         if (points.size() > 2) {
-			    buttonNames[3] = "Distance : " + std::to_string(line.total_distance);
+			    buttonNames[3] = "Distance : " + std::to_string(line->total_distance);
                         }
                     } else {
                         // Check button clicks
@@ -88,11 +141,23 @@ void init(){
                                     // Clear the drawing area if the first button is clicked
                                     points.clear();
 				    buttonNames[3] = "Distance : 0";
+				    line = new Line();
+				    
                                 } else if (i == 1) {
                                     // Handle functionality for button 2 (Next Step)
+				      ga = new Genetic_algorithm(line->node_list, line->len, 10000, 1);
+				    if(line->len > 2){
+
+				    line = find_shortest_path(500, ga, line, &window);
+				    buttonNames[3] = "Distance : " + std::to_string(line->total_distance);
+				}
                                     // You can implement this later
                                 } else if (i == 2) {
                                     // Handle functionality for button 3 (Final Result)
+
+				      ga = new Genetic_algorithm(line->node_list, line->len, 10000, 1);
+				    line = find_shortest_path(3000, ga, line, &window);
+				    buttonNames[3] = "Distance : " + std::to_string(line->total_distance);
                                     // You can implement this later
                                 } else if (i == 3) {
 
@@ -116,25 +181,9 @@ void init(){
             window.draw(point);
         }
 
-        // Draw lines between consecutive points if there are more than two points
-        if (points.size() > 2) {
-            for (size_t i = 1; i < points.size(); ++i) {
-                sf::Vector2f p1 = points[i - 1].getPosition();
-                sf::Vector2f p2 = points[i].getPosition();
-                sf::Vertex line[] = {
-                    sf::Vertex(p1, sf::Color::Black),
-                    sf::Vertex(p2, sf::Color::Black)
-                };
-                window.draw(line, 2, sf::Lines);
-            }
-	    sf::Vector2f p1 = points[0].getPosition();
-	    sf::Vector2f p2 = points[points.size() - 1].getPosition();
-	    sf::Vertex line[] = {
-	      sf::Vertex(p1, sf::Color::Black),
-	      sf::Vertex(p2, sf::Color::Black)
-	    };
-	    window.draw(line, 2, sf::Lines); //FIXME
-        }
+
+	drawGraph(line, &window);	
+
 	
 	buttonTexts[3].setString(buttonNames[3]);
         

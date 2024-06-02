@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cmath>
 #include "Line.h"
+#include "Genetic_algorithm.h"
 
 // Function to check if a point is within a rectangle
 bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mousePos);
