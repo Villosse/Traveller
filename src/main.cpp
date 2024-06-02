@@ -82,7 +82,7 @@ int main() {
                             for (size_t i = 1; i < points.size(); ++i) {
                                 totalDistance += distanceBetweenPoints(points[i - 1].getPosition(), points[i].getPosition());
                             }
-			    buttonNames[3] = "Distance : " + std::to_string(totalDistance); 
+			    buttonNames[3] = "Distance : " + std::to_string(totalDistance);
                         }
                     } else {
                         // Check button clicks

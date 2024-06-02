@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include "Node.h"
 #include "Line.h"
 #include "Genetic_algorithm.h"
 #include <cfloat> 

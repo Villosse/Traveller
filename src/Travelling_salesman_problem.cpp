@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <cfloat>
+#include "Node.h"
 #include "Line.h"
 #include "Travelling_salesman_problem.h"
 

@@ -2,31 +2,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include "Node.h"
 #include "Line.h"
  
 using namespace std;
-
-
-//Node Class
-Node::Node(int _x, int _y)
-{
-	x = _x;
-	y = _y;
-}
-
-Node::Node(Node* n)
-{
-	x = n->x;
-	y = n->y;
-}
-	
-void Node::print()
-{
-	cout << "(" << x << "," << y <<"), ";
-}
-
-
-
 
 //Line Class 
 Line::Line()

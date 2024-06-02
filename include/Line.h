@@ -1,14 +1,8 @@
 #pragma once
+#ifndef LINE_H
 
-class Node
-{
-    public:
-        int x;
-        int y;
-    Node(int _x, int _y);
-    Node(Node* n);
-    void print();
-};
+#define LINE_H
+#include "Node.h"
 
 
 class Line
@@ -39,3 +33,5 @@ class Line
 };
  
 double distance_between_node(Node* p1, Node* p2);
+
+#endif
