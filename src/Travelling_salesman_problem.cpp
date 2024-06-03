@@ -15,7 +15,6 @@ void Travelling_salesman_problem::__shortest_path_brute_force(Line** best, int s
 	
 	if(d < (*best)->total_distance)
 	{
-    		//print();
        		delete (*best);
        		*best = new Line(nodes, len);
        	}
@@ -62,7 +61,6 @@ Line* Travelling_salesman_problem::shortest_path()
 	
 	__shortest_path_brute_force(best, 0, len - 1 );
 	
-	//printf("min distance :%f\n", (*best)->total_distance);
 	
 	return (*best);
 }

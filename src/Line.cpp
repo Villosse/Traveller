@@ -221,18 +221,6 @@ bool Line::operator==(const Line& a)
 //Destructor: Cleans up memory allocated for the Line
 Line::~Line()
 {
-	//std::cout << " \n";
-	//print();
-    /*for(size_t i=0; i<len-2; i++)
-    {
-    	std::cout << i;
-    	node_list[i]->print();
-    	std::cout << " \n";
-        delete node_list[i];
-    }
-
-    std::cout << "nod okay\n";
-    free(node_list);*/
     
     std::cout << "del Line\n";
     delete[] node_list;

@@ -69,13 +69,8 @@ Line*   find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::
 			for(size_t i=0; i < ga->nb_thread; i++)
 				ga->data[i]->number_of_mutation = nb_mutation;
 		}
-		cout << "generation n°" << i << "\t\tnumber_of_mutation:" << nb_mutation << "\t\tpercentage:" << percentage * 100 <<"%\r";
 		ga->create_new_population(nb_mutation);
-		//ga->population[0]->print();
-		//doubleInLine(ga->population[0]);
 	}
-	
-	printf("                                                                              \r");
 	return ga->population[0];
 }
 
@@ -186,28 +181,19 @@ void init(){
                                     // You can implement this later
                                 } else if (i == 2) {
                                     // Handle functionality for button 3 (Final Result)
-/*
-		size_t len;
-        Node** node_list;
-        double* distance_between_node;
-        double total_distance;
-*/
 						line->create_loop();
-						cout << "len: "<< line->len << " total_distance:" << line->total_distance << endl;
 						line->print();
 				      ga = new Genetic_algorithm(line->node_list, line->len, 10000, 4);
 				      
 				      
 				      
-				    line = find_shortest_path(3000, ga, line, &window);
+				    line = find_shortest_path(1000, ga, line, &window);
 				    
 				    //debug
 				    for(size_t i=0; i < 5; i++)
 				    {
-				    cout << "len: "<< ga->population[i]->len << " total_distance:" <<  ga->population[i]->total_distance << endl;
 						 ga->population[i]->print();
 					}
-					cout << "\n\n";
 				    buttonNames[3] = "Distance : " + std::to_string(line->total_distance);
                                     // You can implement this later
                                 } else if (i == 3) {

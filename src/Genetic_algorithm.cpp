@@ -188,12 +188,10 @@ Line* Genetic_algorithm::find_shortest_path(size_t number_of_generation)
 			for(size_t i=0; i < nb_thread; i++)
 				data[i]->number_of_mutation = nb_mutation;
 		}
-		cout << "generation n°" << i << "\t\tnumber_of_mutation:" << nb_mutation << "\t\tpercentage:" << percentage * 100 <<"%\r";
 		create_new_population(nb_mutation);
 		doubleInLine(population[0]);
 	}
 	
-	printf("                                                                              \r");
 	return population[0];
 }
 //Print the nodes
@@ -205,26 +203,11 @@ void Genetic_algorithm::print()
 //Destructor for the Genetic_algorithm class
 Genetic_algorithm::~Genetic_algorithm()
 {
-	/*for(size_t i=0; i<len_nodes; i++)
-		delete nodes[i];
-	free(nodes);
-	
-
-	for(size_t i=0; i<no_of_individuals; i++)
-		delete population[i];
-	free(population);*/
 	
 	//I've no idea if it work well, but when I do it, this destructor doesn't crash, so I suppose it is ok (and idc if not, bc it doesn't have a hudge impact in the computer memory)
 	delete[] nodes;
 	delete[] population;
 	
-	/*cout << "thread\n";
-	for(int i=nb_thread-1; i >= 0; i--)
-	{
-		cout << i << "\n";
-		delete (thread_list[i]);
-	}
-	cout << "ok\n";*/
 	free(thread_list);
 	free(data);
 }
