@@ -3,38 +3,8 @@
 #include <iostream>
 #include <cmath>
 #include "Line.h"
+#include "Node.h"
  
-using namespace std;
-//Node Class
-//Constructor: Initializes a Node with given x and y coordinates
-//Arguments: int _x (x-coordinate), int _y (y-coordinate)
-Node::Node(int _x, int _y)
-{
-	x = _x;
-	y = _y;
-}
-//Copy constructor: Initializes a Node by copying another Node
-//Arguments: Node* n (pointer to another Node object)
-Node::Node(Node* n)
-{
-	x = n->x;
-	y = n->y;
-}
-//Prints the coordinates of the Node
-void Node::print()
-{
-	cout << "(" << x << "," << y <<"), ";
-}
-//Equality operator: Checks if two Nodes are equal based on their coordinates
-bool Node::operator==(const Node& other) const
-{
-    return (x == other.x) && (y == other.y);
-}
-//Inequality operator: Checks if two Nodes are not equal based on their coordinates
-bool Node::operator!=(const Node& a)
-{
-	return !(*this == a);
-}
 //Line Class
 //Default constructor: Initializes an empty Line with zero length and distance
 Line::Line()
@@ -165,7 +135,7 @@ void Line::print()
 {
     for(size_t i=0; i<len; i++)
         node_list[i]->print();
-    cout << "\n";
+    std::cout << "\n";
 }
 //Mutates the Line by swapping nodes a given number of times
 //Arguments: size_t number_of_mutation (number of swaps to perform)
@@ -243,20 +213,20 @@ bool Line::operator==(const Line& a)
 //Destructor: Cleans up memory allocated for the Line
 Line::~Line()
 {
-	//cout << " \n";
+	//std::cout << " \n";
 	//print();
     /*for(size_t i=0; i<len-2; i++)
     {
-    	cout << i;
+    	std::cout << i;
     	node_list[i]->print();
-    	cout << " \n";
+    	std::cout << " \n";
         delete node_list[i];
     }
 
-    cout << "nod okay\n";
+    std::cout << "nod okay\n";
     free(node_list);*/
     
-    cout << "del Line\n";
+    std::cout << "del Line\n";
     delete[] node_list;
     free(distance_between_node);
 }
