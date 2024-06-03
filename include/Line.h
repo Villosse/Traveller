@@ -22,7 +22,8 @@ class Line
     
     void delete_last();
     void delete_last_without_delete_node();
-    
+
+    void create_loop();
     void print();
     void swap(size_t index1, size_t index2);
     
