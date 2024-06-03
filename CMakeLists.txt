@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.5)
 # Project name
 project(Travelling_SalesMan_Problem)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 # Add a compiler flag
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
@@ -18,11 +19,13 @@ file(GLOB HEADERS "includes/*.h")
 # Add the executable
 add_executable(Travelling_SalesMan_Problem ${SOURCES} ${HEADERS})
 
+find_package(Threads REQUIRED)
+
 # Set the output directory for the executable
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 
 # Add the Qt5 Widgets for linking
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system Threads::Threads)
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE 
