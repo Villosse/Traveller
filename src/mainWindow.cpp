@@ -1,7 +1,7 @@
 #include "mainWindow.h"
 #include <unistd.h> 
 
-
+using namespace std;
 void drawGraph(Line* line, sf::RenderWindow* window)
 {
         // Draw lines between consecutive points if there are more than two points
@@ -56,6 +56,30 @@ void drawWindow(sf::RenderWindow* window, Line* line, std::vector<sf::CircleShap
 }
 
 
+//Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::RenderWindow* window){
+Line*   find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::RenderWindow* window)
+{
+	for(size_t i=1; i<nbGen; i++)
+	{
+		double percentage = (double)i / nbGen;
+		size_t nb_mutation = (ga->population[0]->len-1) * exp(-20 * percentage) + 1;
+		
+		if(nb_mutation != ga->data[0]->number_of_mutation)
+		{
+			for(size_t i=0; i < ga->nb_thread; i++)
+				ga->data[i]->number_of_mutation = nb_mutation;
+		}
+		cout << "generation n°" << i << "\t\tnumber_of_mutation:" << nb_mutation << "\t\tpercentage:" << percentage * 100 <<"%\r";
+		ga->create_new_population(nb_mutation);
+		//ga->population[0]->print();
+		//doubleInLine(ga->population[0]);
+	}
+	
+	printf("                                                                              \r");
+	return ga->population[0];
+}
+
+/*
 Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::RenderWindow* window){
   for (size_t i = 1; i < nbGen; i++){
     if(i % 200 == 0)
@@ -75,7 +99,7 @@ Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::Re
   }
   return ga->population[0];
 }
-
+*/
 
 // Function to check if a point is within a rectangle
 bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mousePos) {
@@ -172,8 +196,11 @@ void init(){
 				    
                                 } else if (i == 1) {
                                     // Handle functionality for button 2 (Next Step)
-				      ga = new Genetic_algorithm(line->node_list, line->len, 10000, 1);
+                                    
+                      line->create_loop();
+				      ga = new Genetic_algorithm(line->node_list, line->len, 1000, 4);
 				    if(line->len > 2){
+
 
 				    line = find_shortest_path(500, ga, line, &window);
 				    buttonNames[3] = "Distance : " + std::to_string(line->total_distance);
@@ -181,9 +208,28 @@ void init(){
                                     // You can implement this later
                                 } else if (i == 2) {
                                     // Handle functionality for button 3 (Final Result)
-
-				      ga = new Genetic_algorithm(line->node_list, line->len, 10000, 1);
+/*
+		size_t len;
+        Node** node_list;
+        double* distance_between_node;
+        double total_distance;
+*/
+						line->create_loop();
+						cout << "len: "<< line->len << " total_distance:" << line->total_distance << endl;
+						line->print();
+				      ga = new Genetic_algorithm(line->node_list, line->len, 10000, 4);
+				      
+				      
+				      
 				    line = find_shortest_path(3000, ga, line, &window);
+				    
+				    //debug
+				    for(size_t i=0; i < 5; i++)
+				    {
+				    cout << "len: "<< ga->population[i]->len << " total_distance:" <<  ga->population[i]->total_distance << endl;
+						 ga->population[i]->print();
+					}
+					cout << "\n\n";
 				    buttonNames[3] = "Distance : " + std::to_string(line->total_distance);
                                     // You can implement this later
                                 } else if (i == 3) {

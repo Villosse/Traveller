@@ -12,7 +12,7 @@ void Genetic_algorithm::shuffle_nodes()
 {		
 	for(size_t i = 0; i < rand() % (len_nodes-3) + 3; i++)
 	{
-		swap_nodes(rand() % len_nodes, rand() % len_nodes);
+		swap_nodes(rand() % (len_nodes), rand() % (len_nodes));
 	}
 }
 //Swap two nodes in the nodes array
@@ -38,7 +38,7 @@ Genetic_algorithm::Genetic_algorithm(Node** _nodes, size_t _len_nodes, size_t _n
 	no_of_individuals = _no_of_individuals;
 	population = (Line**)malloc(no_of_individuals * sizeof(Line*));
 	
-	len_nodes = _len_nodes;
+	len_nodes = _len_nodes-1;
 	nodes = (Node**)malloc(len_nodes * sizeof(Node*));
 	
 	for(size_t i=0; i<len_nodes; i++)
@@ -75,7 +75,7 @@ size_t Genetic_algorithm::generation_assessment()
 	size_t best = 0;
 	for(size_t i=1; i<no_of_individuals; i++)
 	{
-		if(population[i]->total_distance < population[best]->total_distance)
+		if(population[i]->total_distance < population[best]->total_distance && population[i]->total_distance > 0)
 			best = i;
 	}
 	return best;
@@ -158,6 +158,20 @@ void Genetic_algorithm::create_new_population(size_t number_of_mutation)
 		pthread_join(thread_list[i], nullptr);
 	}
 }
+void doubleInLine(Line* l)
+{
+	for (size_t i = 0; i < l->len-1; i++)
+	{
+		for (size_t j = i+1; j < l->len-1; j++)
+		{
+			if(*(l->node_list[i]) == *(l->node_list[j]))
+			{
+				cout << i<<" "<<j<<endl;
+				exit(1);
+			}
+		}
+	}
+}
 //Find the shortest path over a number of generations
 //Arguments: number_of_generation is the number of generations to run the algorithm
 //Returns: a pointer to the Line object representing the shortest path found
@@ -176,6 +190,7 @@ Line* Genetic_algorithm::find_shortest_path(size_t number_of_generation)
 		}
 		cout << "generation n°" << i << "\t\tnumber_of_mutation:" << nb_mutation << "\t\tpercentage:" << percentage * 100 <<"%\r";
 		create_new_population(nb_mutation);
+		doubleInLine(population[0]);
 	}
 	
 	printf("                                                                              \r");

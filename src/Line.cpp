@@ -70,7 +70,13 @@ void Line::random(size_t number_of_point, size_t max)
 	for(size_t i=0; i<number_of_point; i++)
    		add((size_t)(rand()) % max, (size_t)(rand()) % max);
    	
-   	len++;
+   	create_loop();
+}
+
+
+void Line::create_loop()
+{
+	len++;
    	node_list = (Node**)realloc(node_list, (len)* sizeof(Node*));
    	node_list[len-1] = node_list[0];
    	double d = distance_to_next(len - 2);
@@ -78,6 +84,8 @@ void Line::random(size_t number_of_point, size_t max)
     distance_between_node[len-2] = d;
 	total_distance += d;
 }
+
+
 //Adds a new node to the Line with given coordinates
 //Arguments: int x (x-coordinate), int y (y-coordinate)
 void Line::add(int x, int y)
