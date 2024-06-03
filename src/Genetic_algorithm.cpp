@@ -63,11 +63,11 @@ Genetic_algorithm::Genetic_algorithm(Node** _nodes, size_t _len_nodes, size_t _n
 		data[i] = (struct Data_new_pop*)malloc(sizeof(struct Data_new_pop));
 		data[i]->start = nb_ind * i + 1;
 		size_t ni = nb_ind * (i+1);
-
 		data[i]->end = min(ni, no_of_individuals - ni);
 		data[i]->ga_instance = this;
 	}
 }
+
 //Assess the current generation and return the index of the best individual (the one with the shortest path)
 //Returns: the index of the best individual
 size_t Genetic_algorithm::generation_assessment()
@@ -129,7 +129,6 @@ void* pthread_create_new_population(void * argv)
 	{
 		data->ga_instance->breeding_with(i);
 		data->ga_instance->population[i]->mutate(data->number_of_mutation);
-
 		
 		//updating last node; the path need to be a loop
 		data->ga_instance->population[i]->node_list[len_minus_one] = data->ga_instance->population[i]->node_list[0];
@@ -138,6 +137,7 @@ void* pthread_create_new_population(void * argv)
 		data->ga_instance->population[i]->distance_between_node[len_minus_one] 	 = distance_between_node(data->ga_instance->population[i]->node_list[0], data->ga_instance->population[i]->node_list[len-2]);
 		data->ga_instance->population[i]->total_distance 						+= data->ga_instance->population[i]->distance_between_node[len_minus_one];
 	}
+
 	return NULL;
 }
 //Create a new population with mutations
@@ -188,10 +188,12 @@ Line* Genetic_algorithm::find_shortest_path(size_t number_of_generation)
 			for(size_t i=0; i < nb_thread; i++)
 				data[i]->number_of_mutation = nb_mutation;
 		}
+		cout << "generation n°" << i << "\t\tnumber_of_mutation:" << nb_mutation << "\t\tpercentage:" << percentage * 100 <<"%\r";
 		create_new_population(nb_mutation);
 		doubleInLine(population[0]);
 	}
 	
+	printf("                                                                              \r");
 	return population[0];
 }
 //Print the nodes
@@ -203,11 +205,26 @@ void Genetic_algorithm::print()
 //Destructor for the Genetic_algorithm class
 Genetic_algorithm::~Genetic_algorithm()
 {
+	/*for(size_t i=0; i<len_nodes; i++)
+		delete nodes[i];
+	free(nodes);
+
+	
+	for(size_t i=0; i<no_of_individuals; i++)
+		delete population[i];
+	free(population);*/
 	
 	//I've no idea if it work well, but when I do it, this destructor doesn't crash, so I suppose it is ok (and idc if not, bc it doesn't have a hudge impact in the computer memory)
 	delete[] nodes;
 	delete[] population;
 	
+	/*cout << "thread\n";
+	for(int i=nb_thread-1; i >= 0; i--)
+	{
+		cout << i << "\n";
+		delete (thread_list[i]);
+	}
+	cout << "ok\n";*/
 	free(thread_list);
 	free(data);
 }

@@ -7,6 +7,21 @@ if [[ $PROJECT_NAME =~ [^a-zA-Z0-9_] ]]; then
   exit 1
 fi
 
+
+# Prompt user to choose between TUI and GUI
+read -p "Do you want to use tui or gui? (write tui or gui): " UI_CHOICE
+
+if [[ $UI_CHOICE == "tui" ]]; then
+  cp src/main.cpp.tui src/main.cpp
+elif [[ $UI_CHOICE == "gui" ]]; then
+  cp src/main.cpp.gui src/main.cpp
+else
+  echo "Invalid choice. Please write 'tui' or 'gui'."
+  exit 1
+fi
+
+
+
 mkdir -p "${PROJECT_DIR}/build"
 
 mkdir -p output/debug/ 

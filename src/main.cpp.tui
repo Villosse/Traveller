@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cfloat>
+#include <time.h>
+#include "Line.h"
+#include "Travelling_salesman_problem.h"
+#include "Genetic_algorithm.h"
+using namespace std;
+int main()
+{
+	srand(time(NULL));
+	
+	Line* l = new Line();
+	l->random(50,1000);
+	l->print();
+	
+	cout << "Genetic_algorithm:\n";
+	
+	time_t start,end;
+	Genetic_algorithm* ga = new Genetic_algorithm(l->node_list, l->len, 10000, 20);
+	
+	time (&start);
+	Line* best_ga = ga->find_shortest_path(5000);
+	time (&end);
+	
+	double seconds = difftime (end,start);
+	
+	cout << "\nresult: " << seconds << "seconds\tdistance: " << best_ga->total_distance << "\n";
+	best_ga->print();
+	
+	delete ga;
+	delete l;
+	
+	return 0;
+}
