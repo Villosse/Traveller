@@ -79,28 +79,6 @@ Line*   find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::
 	return ga->population[0];
 }
 
-/*
-Line* find_shortest_path(size_t nbGen, Genetic_algorithm* ga, Line* line, sf::RenderWindow* window){
-  for (size_t i = 1; i < nbGen; i++){
-    if(i % 200 == 0)
-    {
-      drawGraph(ga->population[0], window);
-    }
-      double percentage = (double)i / nbGen;
-      size_t nb_mutation = (ga->population[0]->len-1) * exp(-20 * percentage) + 1;
-    if (nb_mutation != ga->data[0]->number_of_mutation)
-    {
-      for(size_t i = 0; i < ga->nb_thread; i++)
-      {
-	ga->data[i]->number_of_mutation = nb_mutation;
-      }
-    }
-    ga->create_new_population(nb_mutation);
-  }
-  return ga->population[0];
-}
-*/
-
 // Function to check if a point is within a rectangle
 bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2f& mousePos) {
     return button.getGlobalBounds().contains(mousePos);
