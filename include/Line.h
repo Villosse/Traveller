@@ -1,15 +1,8 @@
 #pragma once
+#ifndef LINE_H
 
-class Node
-{
-    public:
-        int x;
-        int y;
-    Node(int _x, int _y);
-    Node(Node* n);
-    void print();
-};
-
+#define LINE_H
+#include "Node.h"
 
 class Line
 {
@@ -32,10 +25,16 @@ class Line
     
     void print();
     void swap(size_t index1, size_t index2);
+    void create_loop();
     
     double distance(size_t index1, size_t index2);
     double distance_to_next(size_t index);
+    
+    bool operator==(const Line& a);
+    
     ~Line();
 };
  
 double distance_between_node(Node* p1, Node* p2);
+
+#endif
